@@ -1,5 +1,6 @@
 import Styled from 'styled-components'
 import {useState} from 'react'
+import Accordion from './Accordion'
 
 const Toggle = Styled.div`
 background:transparent;
@@ -48,28 +49,6 @@ border-color:transparent;
 }
 `
 
-const Accordion = Styled.div`
-    position:absolute;
-    width:100%;
-    left:0px;
-    top:10vh;
-    z-index:5;
-    background:#fff;
-    padding:7vh 0;
-
-    display:${props=> (props.flag ? 'block' : 'none') };
-
-    & > ul {
-        display:flex;
-        flex-direction:column;
-    }
-
-    & > ul > li {
-        margin-top:20px;
-        text-align:center;
-    }
-`
-
 const NavToggle = () => {
     //상태값을 설정함.
     const [visible,setVisible] = useState(false)
@@ -82,7 +61,7 @@ const NavToggle = () => {
             <input 
                 type="checkbox" 
                 id="nav-toggle" 
-                className="nav-toggle" 
+                className="nav-toggle"
                 onClick={handleToggle}
             />
             <label htmlFor="nav-toggle">
@@ -90,16 +69,7 @@ const NavToggle = () => {
                 <span></span>
                 <span></span>
             </label>
-            {/* 메뉴생성 */}
-            <Accordion flag={visible}>
-                <ul>
-                    <li>대분류메뉴1</li>
-                    <li>대분류메뉴2</li>
-                    <li>대분류메뉴3</li>
-                    <li>대분류메뉴4</li>
-                    <li>대분류메뉴5</li>
-                </ul>
-            </Accordion>
+            <Accordion visible={visible} handleToggle={handleToggle}/>
         </Toggle>
     )
 }

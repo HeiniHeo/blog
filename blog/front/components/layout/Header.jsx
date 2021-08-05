@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import NavToggle from '../NavToggle'
 import Styled from 'styled-components'
-import {useContext} from 'react'
-import Store from '../../pages/store/context'
+// import {useContext} from 'react'
+// import Store from '../../store/context'
+import { useSelector } from 'react-redux'
 
 const HeaderContainer = Styled.div`
     display:flex;
@@ -31,42 +32,61 @@ const Gnb = Styled.ul`
     }
 `
 
+const LoginComponent = () => {
+    return (
+        <>
+            <li><Link href="/login"><a>로그인</a></Link></li>
+            <li><Link href="/join"><a>회원가입</a></Link></li>
+        </>
+    )
+}
+
+const LogoutComponent = () => {
+    return (
+        <>
+            <li><Link href="/logout"><a>로그아웃</a></Link></li>
+            <li><Link href="/profile"><a>회원정보</a></Link></li>
+        </>
+    )
+}
+
 const Header = () => {
-                                // Store 
-    const globalStore = useContext(Store) // {IsLogin:false}
-                                          // {state:{IsLogin:false},dispatch:()=>{}}
-    const {IsLogin} = globalStore.state
+    //                             // Store 
+    // const globalStore = useContext(Store) // {IsLogin:false}
+    //                                       // {state:{IsLogin:false},dispatch:()=>{}}
+    // const {IsLogin} = globalStore.state
+
+    const { IsLogin } = useSelector((state) => state.user)
+
     return (
         <HeaderContainer>
-                {/* 로고와 메뉴 */}
-                <h1>로고</h1>
-                <Gnb>
-                    <li>
-                        <Link href="/">
-                            <a>HOME</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/posts/post">
-                            <a>글쓰기</a>
-                        </Link>
-                    </li>
-                    {
-                        IsLogin === false
+            {/* 로고와 메뉴 */}
+            <h1>로고</h1>
+            <Gnb>
+                <li>
+                    <Link href="/">
+                        <a>HOME</a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/posts/post">
+                        <a>글쓰기</a>
+                    </Link>
+                </li>
+                {
+                    IsLogin === false
                         ? <>
-                        <li><Link href="/login"><a>로그인</a></Link></li>
-                        <li><Link href="/join"><a>회원가입</a></Link></li>
+                            <LoginComponent />
                         </>
                         : <>
-                        <li><Link href="/logout"><a>로그아웃</a></Link></li>
-                        <li><Link href="/profile"><a>회원정보</a></Link></li>
+                            <LogoutComponent />
                         </>
-                    }
-                    
-                    
-                </Gnb>
-                <NavToggle />
-            </HeaderContainer>
+                }
+
+
+            </Gnb>
+            <NavToggle />
+        </HeaderContainer>
     )
 }
 

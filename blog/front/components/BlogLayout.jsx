@@ -1,7 +1,4 @@
-import Link from 'next/link'
-import NavToggle from './NavToggle'
 import Header from './layout/Header'
-
 
 const BlogLayout = ({children}) => {
 
